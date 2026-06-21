@@ -23,10 +23,19 @@ export default defineConfig({
     // Tailwind is not being actively used – do not remove them
     react(),
     tailwindcss(),
+    {
+      name: 'case-page-dev-rewrite',
+      configureServer(server) {
+        server.middlewares.use((req, _res, next) => {
+          const match = req.url?.match(/^\/cases\/(case-\d+)(\/|\/index\.html)?(\?.*)?$/);
+          if (match) req.url = `/${match[1]}.html`;
+          next();
+        });
+      },
+    },
   ],
   resolve: {
     alias: {
-      // Alias @ to the src directory
       '@': path.resolve(__dirname, './src'),
     },
   },

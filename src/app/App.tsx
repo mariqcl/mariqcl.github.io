@@ -26,7 +26,7 @@ function Preloader({ onDone }: { onDone: () => void }) {
 
   return (
     <motion.div
-      className="fixed inset-0 z-[100] bg-background flex items-end justify-between px-8 md:px-14 pb-10"
+      className="fixed inset-0 z-[100] bg-background flex items-end justify-between px-16 md:px-28 pb-10"
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
     >
@@ -49,7 +49,15 @@ function Preloader({ onDone }: { onDone: () => void }) {
 // ─── Shared primitives ─────────────────────────────────────────────────────────
 
 function Rule() {
-  return <hr className="border-t border-border" />;
+  return (
+    <motion.hr
+      className="border-t border-border origin-left"
+      initial={{ scaleX: 0 }}
+      whileInView={{ scaleX: 1 }}
+      viewport={{ once: true, margin: "-20px" }}
+      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+    />
+  );
 }
 
 function SectionLabel({
@@ -124,14 +132,26 @@ function CustomCursor() {
   );
 }
 
-function Tag({ children }: { children: React.ReactNode }) {
+// ─── Reading progress ──────────────────────────────────────────────────────────
+
+function ReadingProgress() {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const update = () => {
+      const scrolled = window.scrollY;
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(total > 0 ? (scrolled / total) * 100 : 0);
+    };
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
+
   return (
-    <span
-      className="inline-block font-mono text-[12px] tracking-widest uppercase text-muted-foreground border border-border px-4 py-2"
-      style={{ fontFamily: "var(--font-mono)" }}
-    >
-      {children}
-    </span>
+    <div
+      className="fixed top-0 left-0 z-[200] h-[2px] transition-none"
+      style={{ width: `${progress}%`, backgroundColor: "var(--accent)" }}
+    />
   );
 }
 
@@ -158,10 +178,10 @@ function Nav({
         scrolled ? "border-b border-border bg-background/98 backdrop-blur-sm" : ""
       }`}
     >
-      <div className="px-8 md:px-14 py-4 md:py-8 flex items-center justify-between">
+      <div className="px-16 md:px-28 py-4 md:py-8 flex items-center justify-between">
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="font-mono text-[12px] tracking-[0.2em] uppercase text-[#155DFC] transition-colors"
+          className="font-mono text-[12px] tracking-[0.2em] uppercase text-accent transition-colors"
           style={{ fontFamily: "var(--font-mono)" }}
         >
           Mariana Queiroz
@@ -171,21 +191,21 @@ function Nav({
             href="https://www.linkedin.com/in/maariqueiroz/"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-mono text-[12px] tracking-[0.15em] uppercase text-muted-foreground hover:text-[#155DFC] transition-colors hidden md:block"
+            className="font-mono text-[12px] tracking-[0.15em] uppercase text-muted-foreground hover:text-accent transition-colors hidden md:block"
             style={{ fontFamily: "var(--font-mono)" }}
           >
             LinkedIn
           </a>
           <a
             href="mailto:mariqcl@gmail.com"
-            className="font-mono text-[12px] tracking-[0.15em] uppercase text-muted-foreground hover:text-[#155DFC] transition-colors hidden md:block"
+            className="font-mono text-[12px] tracking-[0.15em] uppercase text-muted-foreground hover:text-accent transition-colors hidden md:block"
             style={{ fontFamily: "var(--font-mono)" }}
           >
             Contato
           </a>
           <button
             onClick={toggleTheme}
-            className="text-muted-foreground hover:text-[#155DFC] transition-colors"
+            className="text-muted-foreground hover:text-accent transition-colors"
             aria-label="Toggle theme"
           >
             {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
@@ -232,8 +252,8 @@ function HomeView() {
   return (
     <main id="main">
       {/* Hero ─────────────────────────────────────────────────────────────── */}
-      <section className="min-h-screen flex flex-col justify-between pt-24 pb-0 px-8 md:px-14">
-        <div className="flex items-start justify-between pt-10">
+      <section className="min-h-screen flex flex-col justify-between pt-20 pb-0 px-16 md:px-28">
+        <div className="flex items-start justify-between pt-9">
           <motion.p
             className="font-mono text-[12px] tracking-[0.22em] uppercase text-muted-foreground"
             style={{ fontFamily: "var(--font-mono)" }}
@@ -254,11 +274,11 @@ function HomeView() {
           </motion.p>
         </div>
 
-        <div className="py-10">
+        <div className="py-9">
           <h1 className="sr-only">Sistemas, IA e Experiência.</h1>
           <div className="overflow-hidden mb-2" aria-hidden="true">
             <motion.div
-              className="text-[clamp(2.5rem,7vw,7rem)] font-medium leading-[0.9] tracking-tighter"
+              className="text-[clamp(2.75rem,7.7vw,7.7rem)] font-medium leading-[0.9] tracking-tighter"
               initial={{ y: "105%" }}
               animate={{ y: 0 }}
               transition={{ duration: 0.8, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
@@ -268,7 +288,7 @@ function HomeView() {
           </div>
           <div className="overflow-hidden" aria-hidden="true">
             <motion.div
-              className="text-[clamp(2.5rem,7vw,7rem)] font-medium leading-[0.9] tracking-tighter"
+              className="text-[clamp(2.75rem,7.7vw,7.7rem)] font-medium leading-[0.9] tracking-tighter"
               initial={{ y: "105%" }}
               animate={{ y: 0 }}
               transition={{ duration: 0.8, delay: 0.24, ease: [0.22, 1, 0.36, 1] }}
@@ -284,33 +304,30 @@ function HomeView() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
         >
-          <Rule />
-          <div className="pt-8 pb-16 grid md:grid-cols-12 gap-8">
-            <p className="text-base md:text-lg text-muted-foreground leading-relaxed font-light md:col-span-5 max-w-md">
-              Design de Produto · Sistemas, IA e Experiência em Contextos Complexos.
+          <div className="pt-7 pb-14 flex flex-col md:flex-row md:items-start md:justify-between gap-7">
+            <p className="text-base md:text-lg text-muted-foreground leading-relaxed font-light max-w-md">
+              Especialista em arquitetar{" "}
+              <strong className="font-semibold" style={{ color: "var(--accent)" }}>
+                ecossistemas digitais
+              </strong>{" "}
+              do discovery ao delivery, conectando pesquisa, estratégia e tecnologia.
             </p>
-            <div className="flex flex-col md:flex-row md:items-end justify-between md:justify-end gap-8 md:col-span-7">
-              <p className="text-sm text-muted-foreground leading-relaxed max-w-xs hidden md:block">
-                Especialista em arquitetar ecossistemas digitais do discovery ao delivery,
-                conectando negócio, tecnologia e inteligência artificial.
-              </p>
-              <button
-                onClick={() =>
-                  document.getElementById("cases")?.scrollIntoView({ behavior: "smooth" })
-                }
-                className="inline-flex items-center gap-4 text-sm px-8 py-4 transition-colors group shrink-0 text-white w-fit"
-                style={{ backgroundColor: "var(--accent)" }}
-              >
-                Ver projetos
-                <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
-              </button>
-            </div>
+            <button
+              onClick={() =>
+                document.getElementById("cases")?.scrollIntoView({ behavior: "smooth" })
+              }
+              className="inline-flex items-center gap-4 text-sm px-8 py-4 transition-colors group shrink-0 text-white w-fit"
+              style={{ backgroundColor: "var(--accent)" }}
+            >
+              Ver projetos
+              <ArrowRight size={13} className="group-hover:translate-x-1 transition-transform" />
+            </button>
           </div>
         </motion.div>
       </section>
 
       {/* Cases ────────────────────────────────────────────────────────────── */}
-      <section id="cases" className="px-8 md:px-14 pt-24 md:pt-32 pb-8">
+      <section id="cases" className="px-16 md:px-28 pt-20 md:pt-28 pb-7">
         <SectionLabel>Projetos selecionados</SectionLabel>
       </section>
 
@@ -326,13 +343,13 @@ function HomeView() {
             <Rule />
             <a
               href={`./cases/${c.id}/`}
-              className="w-full text-left px-8 md:px-14 py-10 group hover:bg-[#155DFC]/5 transition-colors block"
+              className="w-full text-left px-16 md:px-28 py-9 group hover:bg-accent/5 transition-colors block"
               aria-label={`Ver projeto: ${c.title}`}
             >
               <div className="grid grid-cols-[3rem_1fr_auto] md:grid-cols-12 gap-6 md:gap-8 items-start">
                 <div className="md:col-span-1">
                   <span
-                    className="font-mono text-xs text-muted-foreground/40 group-hover:text-[#155DFC] transition-colors pt-2 tabular-nums block"
+                    className="font-mono text-xs md:text-sm text-muted-foreground group-hover:text-accent transition-colors pt-2 tabular-nums block"
                     style={{ fontFamily: "var(--font-mono)" }}
                   >
                     {c.index}
@@ -341,24 +358,25 @@ function HomeView() {
 
                 <div className="md:col-span-10 flex flex-col md:flex-row md:items-baseline md:justify-between gap-4 md:gap-12 md:pr-12">
                   <div className="flex-1 max-w-2xl">
-                    <h2 className="text-2xl md:text-4xl font-medium leading-tight group-hover:text-[#155DFC] transition-colors mb-4">
+                    <h2 className="text-2xl md:text-4xl font-medium leading-tight group-hover:text-accent transition-colors mb-3">
                       {c.title}
                     </h2>
-                    <p className="text-sm md:text-base text-muted-foreground group-hover:text-[#155DFC]/80 transition-colors leading-relaxed mb-6 font-normal">
+                    <p className="text-sm md:text-base text-muted-foreground group-hover:text-accent/80 transition-colors leading-relaxed mb-5 font-normal">
                       {c.hook}
                     </p>
-                    <div className="flex flex-wrap gap-2">
-                      {c.tags.map((t) => (
-                        <Tag key={t}>{t}</Tag>
-                      ))}
-                    </div>
+                    <p
+                      className="font-mono text-[11px] tracking-[0.15em] uppercase text-accent dark:text-[#9B6B45]"
+                      style={{ fontFamily: "var(--font-mono)" }}
+                    >
+                      {c.tags.join(" · ")}
+                    </p>
                   </div>
                 </div>
 
                 <div className="md:col-span-1 flex justify-end pt-2">
                   <ArrowUpRight
                     size={24}
-                    className="text-[#155DFC] group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
+                    className="text-accent group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"
                   />
                 </div>
               </div>
@@ -369,18 +387,17 @@ function HomeView() {
       </div>
 
       {/* About ────────────────────────────────────────────────────────────── */}
-      <section className="px-8 md:px-14 py-28 md:py-40">
-        <div className="grid md:grid-cols-12 gap-16 md:gap-8 items-start">
+      <section className="px-16 md:px-28 py-24 md:py-32">
+        <div className="grid md:grid-cols-12 gap-14 md:gap-7 items-start">
           <div className="md:col-span-5 md:pr-10">
-            <SectionLabel>Sobre</SectionLabel>
-            <h2 className="text-4xl md:text-5xl leading-tight">
+            <h2 className="text-[3.267rem] md:text-[4.356rem] leading-tight -mt-[0.15em]">
               <span className="font-semibold">Mariana</span>
               <br />
               <span className="font-light">Queiroz</span>
             </h2>
           </div>
 
-          <div className="md:col-span-7 space-y-6 text-base md:text-lg leading-relaxed text-muted-foreground font-light max-w-3xl">
+          <div className="md:col-span-7 space-y-5 text-base md:text-lg leading-relaxed text-muted-foreground font-light max-w-3xl">
             <p className="text-foreground font-light">
               Senior Product Designer · Sistemas, IA e Experiência em Contextos Complexos
             </p>
@@ -390,7 +407,7 @@ function HomeView() {
               Product Designer na SIEG.
             </p>
 
-            <div className="pt-6 border-t border-border space-y-3">
+            <div className="pt-5 space-y-3">
               <p
                 className="font-mono text-[11px] tracking-[0.2em] uppercase text-foreground/60"
                 style={{ fontFamily: "var(--font-mono)" }}
@@ -404,7 +421,7 @@ function HomeView() {
               </p>
             </div>
 
-            <div className="pt-6 border-t border-border space-y-4">
+            <div className="pt-5 space-y-3">
               <p
                 className="font-mono text-[11px] tracking-[0.2em] uppercase text-foreground/60"
                 style={{ fontFamily: "var(--font-mono)" }}
@@ -412,7 +429,7 @@ function HomeView() {
                 O impacto da IA no meu ecossistema
               </p>
               <p>A IA redesenha minha atuação em três pilares:</p>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 pt-2">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-7 md:gap-5 pt-2">
                 {[
                   {
                     label: "Processo",
@@ -437,7 +454,7 @@ function HomeView() {
                     >
                       {item.label} — {item.sub}
                     </p>
-                    <p className="text-xs leading-relaxed">{item.desc}</p>
+                    <p className="text-xs md:text-sm leading-relaxed">{item.desc}</p>
                   </div>
                 ))}
               </div>
@@ -449,33 +466,33 @@ function HomeView() {
       {/* Contact ─────────────────────────────────────────────────────────── */}
       <section
         id="contact"
-        className="min-h-[70vh] flex flex-col border-t border-border px-8 md:px-14 pt-16 pb-10"
+        className="min-h-[60vh] flex flex-col border-t border-border px-16 md:px-28 pt-14 pb-9"
       >
         <div className="flex-1 flex flex-col justify-center">
-          <div className="flex items-start justify-between gap-8">
+          <div className="flex items-start justify-between gap-7">
             <div>
               <SectionLabel>Contato</SectionLabel>
-              <div className="flex flex-col gap-3 mt-6">
+              <div className="flex flex-col gap-3 mt-5">
                 <a
                   href="mailto:mariqcl@gmail.com"
-                  className="text-lg md:text-xl font-light hover:text-[#155DFC] transition-colors group inline-flex items-center gap-4"
+                  className="text-lg md:text-xl font-light hover:text-accent transition-colors group inline-flex items-center gap-4"
                 >
                   mariqcl@gmail.com
                   <ArrowUpRight
                     size={18}
-                    className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#155DFC] transition-all"
+                    className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent transition-all"
                   />
                 </a>
                 <a
                   href="https://www.linkedin.com/in/maariqueiroz/"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-base font-light text-muted-foreground hover:text-[#155DFC] transition-colors group inline-flex items-center gap-3"
+                  className="text-base font-light text-muted-foreground hover:text-accent transition-colors group inline-flex items-center gap-3"
                 >
                   LinkedIn
                   <ArrowUpRight
                     size={16}
-                    className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#155DFC] transition-all"
+                    className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent transition-all"
                   />
                 </a>
               </div>
@@ -488,9 +505,9 @@ function HomeView() {
           </div>
         </div>
 
-        <div className="pt-12 border-t border-border">
+        <div className="pt-10">
           <span
-            className="font-mono text-[12px] tracking-widest text-muted-foreground/40"
+            className="font-mono text-[12px] tracking-widest text-muted-foreground"
             style={{ fontFamily: "var(--font-mono)" }}
           >
             © 2026 Mariana Queiroz
@@ -541,6 +558,7 @@ export default function App() {
 
         {ready && (
           <>
+            <ReadingProgress />
             <Nav theme={theme} toggleTheme={toggleTheme} />
             <HomeView />
           </>

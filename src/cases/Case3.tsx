@@ -12,14 +12,7 @@ export function Case3View({ onBack }: { onBack: () => void }) {
   return (
     <CaseLayout onBack={onBack}>
       <CaseHero
-        index="Case 03"
-        title="Uma plataforma, em vez de cinco produtos"
-        hook={
-          <>
-            "Matar as submarcas." Era o nome interno do projeto. A plataforma estava partida em cinco
-            produtos que operavam como ilhas — e o problema não era falta de função. Era arquitetura.
-          </>
-        }
+        hook="Uma plataforma, em vez de cinco produtos"
         tags={[
           "Arquitetura da informação",
           "Visão sistêmica",
@@ -77,11 +70,6 @@ export function Case3View({ onBack }: { onBack: () => void }) {
             fragmentação.
           </p>
           <p>
-            A prova mais direta veio dos tickets. Os três termos mais frequentes nos títulos dos
-            chamados eram nomes de produto — autodocs, iris, hub — acima de "erro". A fronteira entre
-            produtos era tão real na cabeça do usuário que virava a primeira palavra do ticket.
-          </p>
-          <p>
             No heatmap, quase todo acesso acontecia pelo menu global do header — não pela navegação
             interna de cada produto. O usuário já usava a plataforma como um lugar só. Faltava o
             sistema assumir isso.
@@ -124,7 +112,7 @@ export function Case3View({ onBack }: { onBack: () => void }) {
         />
 
         <CaseArtifact
-          label="Detalhe — Cofre e AutoDocs dentro de Docs Fiscais"
+          label="navegação geral de todos os serviços"
           caption="O que era ilha virou seção. Produtos isolados passaram a ser partes de um domínio maior, organizados por tarefa — cada um com um papel dentro do todo."
           image="/navegacao-header.png"
         />

@@ -23,9 +23,7 @@ export function Case2View({
       onNext={onNext}
     >
       <CaseHero
-        index="Case 02"
-        title="O sistema que escala o time"
-        hook="O design system que elevou a maturidade do time de design e engenharia."
+        hook="O sistema que escala o time"
         tags={["Design System", "Governança", "IA", "Engenharia", "Escalabilidade", "Tokens semânticos"]}
         overview={[
           { label: "Empresa", value: "Sieg" },
@@ -93,7 +91,7 @@ export function Case2View({
                 className="flex flex-col md:flex-row gap-6 md:gap-10 items-start border-t border-border pt-8"
               >
                 <span
-                  className="font-mono text-[12px] text-[#155DFC]/40 md:pt-2"
+                  className="font-mono text-[12px] text-accent/40 md:pt-2"
                   style={{ fontFamily: "var(--font-mono)" }}
                 >
                   Movimento {item.n}

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
-import { ArrowRight, ArrowLeft, ArrowUpRight, Moon, Sun } from "lucide-react";
+import { ArrowRight, ArrowLeft, Moon, Sun } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { ImageWithFallback } from "../app/components/figma/ImageWithFallback";
 
@@ -25,10 +25,10 @@ export function BackButton({ onClick }: { onClick: () => void }) {
   return (
     <button
       onClick={onClick}
-      className="inline-flex items-center gap-2 font-mono text-[12px] tracking-[0.15em] uppercase text-muted-foreground hover:text-[#155DFC] transition-colors group"
+      className="inline-flex items-center gap-2 font-mono text-[12px] tracking-[0.15em] uppercase text-muted-foreground hover:text-accent transition-colors group"
       style={{ fontFamily: "var(--font-mono)" }}
     >
-      <ArrowLeft size={11} className="group-hover:-translate-x-0.5 group-hover:text-[#155DFC] transition-all" />
+      <ArrowLeft size={11} className="group-hover:-translate-x-0.5 group-hover:text-accent transition-all" />
       Voltar
     </button>
   );
@@ -116,10 +116,10 @@ export function Nav({
         scrolled ? "border-b border-border bg-background/98 backdrop-blur-sm" : ""
       }`}
     >
-      <div className="px-8 md:px-14 py-4 md:py-8 flex items-center justify-between">
+      <div className="px-16 md:px-28 py-4 md:py-8 flex items-center justify-between">
         <button
           onClick={onHome}
-          className="font-mono text-[12px] tracking-[0.2em] uppercase text-[#155DFC] transition-colors"
+          className="font-mono text-[12px] tracking-[0.2em] uppercase text-accent transition-colors"
           style={{ fontFamily: "var(--font-mono)" }}
         >
           Mariana Queiroz
@@ -129,21 +129,21 @@ export function Nav({
             href="https://www.linkedin.com/in/maariqueiroz/"
             target="_blank"
             rel="noopener noreferrer"
-            className="font-mono text-[12px] tracking-[0.15em] uppercase text-muted-foreground hover:text-[#155DFC] transition-colors hidden md:block"
+            className="font-mono text-[12px] tracking-[0.15em] uppercase text-muted-foreground hover:text-accent transition-colors hidden md:block"
             style={{ fontFamily: "var(--font-mono)" }}
           >
             LinkedIn
           </a>
           <a
             href="mailto:mariqcl@gmail.com"
-            className="font-mono text-[12px] tracking-[0.15em] uppercase text-muted-foreground hover:text-[#155DFC] transition-colors hidden md:block"
+            className="font-mono text-[12px] tracking-[0.15em] uppercase text-muted-foreground hover:text-accent transition-colors hidden md:block"
             style={{ fontFamily: "var(--font-mono)" }}
           >
             Contato
           </a>
           <button
             onClick={toggleTheme}
-            className="text-muted-foreground hover:text-[#155DFC] transition-colors"
+            className="text-muted-foreground hover:text-accent transition-colors"
             aria-label="Toggle theme"
           >
             {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
@@ -170,8 +170,8 @@ export function CaseLayout({
   onNext?: () => void;
 }) {
   return (
-    <main id="main" className="pt-16">
-      <div className="px-8 md:px-14 pb-10">
+    <main id="main" className="pt-20">
+      <div className="px-16 md:px-28 pb-8">
         <BackButton onClick={onBack} />
       </div>
 
@@ -187,32 +187,26 @@ export function CaseLayout({
         >
           <button
             onClick={onNext}
-            className="w-full text-left px-8 md:px-14 py-16 md:py-24 group transition-colors block"
+            className="w-full text-left px-16 md:px-28 py-[3.2rem] md:py-[4.8rem] group transition-colors block"
             aria-label={`Próximo projeto: ${nextLabel}`}
           >
             <div className="flex items-center justify-between">
               <div>
                 <p
-                  className="font-mono text-[12px] tracking-[0.2em] uppercase text-muted-foreground mb-6"
+                  className="font-mono text-[12px] tracking-[0.2em] uppercase text-muted-foreground mb-5"
                   style={{ fontFamily: "var(--font-mono)" }}
                 >
                   Próximo projeto
                 </p>
                 <div className="flex flex-col md:flex-row md:items-baseline gap-2 md:gap-6">
-                  <span
-                    className="font-mono text-sm text-muted-foreground/40 hidden md:inline-block"
-                    style={{ fontFamily: "var(--font-mono)" }}
-                  >
-                    {nextIndex}
-                  </span>
-                  <span className="text-3xl md:text-6xl font-medium tracking-tight group-hover:text-[#155DFC] transition-colors">
+                  <span className="text-3xl md:text-6xl font-medium tracking-tight group-hover:text-accent transition-colors">
                     {nextLabel}
                   </span>
                 </div>
               </div>
               <ArrowRight
                 size={36}
-                className="text-muted-foreground/40 group-hover:text-[#155DFC] group-hover:translate-x-2 transition-all shrink-0"
+                className="text-muted-foreground group-hover:text-accent group-hover:translate-x-2 transition-all shrink-0"
               />
             </div>
           </button>
@@ -225,14 +219,10 @@ export function CaseLayout({
 // ─── Case Hero ─────────────────────────────────────────────────────────────────
 
 export function CaseHero({
-  index,
-  title,
   hook,
   overview,
   tags,
 }: {
-  index: string;
-  title: string;
   hook: React.ReactNode;
   overview: { label: string; value: string }[];
   tags: string[];
@@ -243,42 +233,21 @@ export function CaseHero({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className="px-8 md:px-14 mb-8 flex items-center gap-4">
-        <span
-          className="font-mono text-[12px] tracking-[0.25em] uppercase"
-          style={{ color: "var(--accent)", fontFamily: "var(--font-mono)" }}
-        >
-          {index}
-        </span>
-        <span className="text-muted-foreground/20">—</span>
-        <span
-          className="font-mono text-[12px] tracking-wider text-muted-foreground uppercase"
-          style={{ fontFamily: "var(--font-mono)" }}
-        >
-          {title}
-        </span>
-      </div>
-
-      <div className="px-8 md:px-14 mb-12 md:mb-16">
-        <h1 className="text-[clamp(2.2rem,5.5vw,5rem)] font-light leading-[1.05] tracking-tight max-w-6xl">
+      <div className="px-16 md:px-28 mb-[2.4rem] md:mb-[3.2rem]">
+        <h1 className="text-[clamp(2.64rem,6.6vw,6rem)] font-light leading-[1.05] tracking-tight max-w-6xl">
           {hook}
         </h1>
       </div>
 
-      <ul
-        className="px-8 md:px-14 mb-0 flex flex-wrap gap-2 list-none m-0 p-0"
-        aria-label="Tags do projeto"
-        style={{ paddingLeft: "2rem", paddingRight: "3.5rem" }}
+      <p
+        className="px-16 md:px-28 font-mono text-[11px] tracking-[0.15em] uppercase text-accent dark:text-[#9B6B45]"
+        style={{ fontFamily: "var(--font-mono)" }}
       >
-        {tags.map((t) => (
-          <li key={t}>
-            <Tag>{t}</Tag>
-          </li>
-        ))}
-      </ul>
+        {tags.join(" · ")}
+      </p>
 
-      <div className="mt-14 border-t border-b border-border">
-        <dl className="px-8 md:px-14 py-8 grid grid-cols-2 md:grid-cols-4 gap-8 mb-0">
+      <div className="mt-[4.8rem] border-t border-border">
+        <dl className="px-16 md:px-28 py-[1.6rem] grid grid-cols-2 md:grid-cols-4 gap-[1.6rem] mb-0">
           {overview.map(({ label, value }) => (
             <div key={label}>
               <dt
@@ -315,7 +284,7 @@ export function CasePhase({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-30px" }}
       transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-      className="relative pt-16 md:pt-32 pb-12 border-t border-border mt-12 md:mt-20"
+      className="relative pt-[3.2rem] md:pt-[6.4rem] pb-[2.4rem] border-t border-border mt-[2.4rem] md:mt-16"
     >
       <div
         className="absolute top-0 right-8 md:right-14 -translate-y-[45%] text-[15vw] md:text-[12vw] font-medium text-foreground/[0.02] leading-none select-none z-[-1] tracking-tighter"
@@ -324,8 +293,8 @@ export function CasePhase({
         {number}
       </div>
 
-      <div className="grid md:grid-cols-12 gap-8 md:gap-16 px-8 md:px-14 relative z-10">
-        <div className="md:col-span-4 flex flex-col gap-6">
+      <div className="grid md:grid-cols-12 gap-[1.6rem] md:gap-[3.2rem] px-16 md:px-28 relative z-10">
+        <div className="md:col-span-4 flex flex-col gap-5">
           <h2 className="text-3xl md:text-[2.5rem] font-medium leading-[1.1] tracking-tight">
             {title}
           </h2>
@@ -336,7 +305,7 @@ export function CasePhase({
           )}
         </div>
 
-        <div className="md:col-span-8 flex flex-col gap-10 md:pl-0">{children}</div>
+        <div className="md:col-span-8 flex flex-col gap-8 md:pl-0">{children}</div>
       </div>
     </motion.div>
   );
@@ -352,7 +321,7 @@ export function CaseBlock({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-3">
       {label && (
         <h3
           className="font-mono text-[12px] tracking-[0.2em] uppercase text-foreground/80 mb-2"
@@ -361,7 +330,7 @@ export function CaseBlock({
           {label}
         </h3>
       )}
-      <div className="text-sm md:text-[15px] leading-relaxed text-muted-foreground font-light space-y-6">
+      <div className="text-sm md:text-base leading-relaxed text-muted-foreground font-light space-y-5">
         {children}
       </div>
     </div>
@@ -372,7 +341,7 @@ export function CaseBlock({
 
 export function CaseHighlight({ children }: { children: React.ReactNode }) {
   return (
-    <div className="py-6 md:py-10 my-4 border-y border-border/30">
+    <div className="py-5 md:py-8 my-3">
       <p className="text-2xl md:text-3xl font-light leading-snug tracking-tight text-foreground/90">
         {children}
       </p>
@@ -387,11 +356,13 @@ export function CaseArtifact({
   caption,
   image,
   aspect = "video",
+  featured = false,
 }: {
   label: string;
   caption?: string;
   image?: string;
   aspect?: "video" | "square" | "tall";
+  featured?: boolean;
 }) {
   const [open, setOpen] = useState(false);
 
@@ -413,9 +384,15 @@ export function CaseArtifact({
 
   return (
     <>
-      <figure className="my-0 group flex flex-col">
+      <figure className="my-0 group flex flex-col gap-3">
+        <span
+          className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground"
+          style={{ fontFamily: "var(--font-mono)" }}
+        >
+          {label}
+        </span>
         <div
-          className={`${cls} border border-border flex items-center justify-center overflow-hidden relative`}
+          className={`${cls} border border-[#e0e0e0] flex items-center justify-center overflow-hidden relative`}
           onClick={() => image && setOpen(true)}
           {...(image ? { "data-lightbox": true } : {})}
         >
@@ -423,7 +400,9 @@ export function CaseArtifact({
             <ImageWithFallback
               src={image}
               alt={label}
-              className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+              className={`w-full h-full object-cover transition-all duration-700 ${
+                featured ? "" : "grayscale group-hover:grayscale-0"
+              }`}
             />
           ) : (
             <p
@@ -434,19 +413,11 @@ export function CaseArtifact({
             </p>
           )}
         </div>
-        <div className="mt-4 flex flex-col gap-2">
-          <span
-            className="font-mono text-[12px] text-foreground/80 uppercase tracking-widest"
-            style={{ fontFamily: "var(--font-mono)" }}
-          >
-            {label}
-          </span>
-          {caption && (
-            <figcaption className="text-sm text-muted-foreground font-light leading-relaxed">
-              {caption}
-            </figcaption>
-          )}
-        </div>
+        {caption && (
+          <figcaption className="text-sm text-muted-foreground font-light leading-relaxed">
+            {caption}
+          </figcaption>
+        )}
       </figure>
 
       {createPortal(
@@ -517,22 +488,25 @@ export function BeforeAfterPair({
   after: { image: string; caption: string };
 }) {
   return (
-    <div className="border-t border-border pt-8 flex flex-col gap-4">
+    <div className="pt-[1.6rem] flex flex-col gap-[2.4rem]">
       <span
-        className="font-mono text-[11px] tracking-[0.25em] uppercase text-muted-foreground/60"
+        className="font-mono text-[11px] tracking-[0.25em] uppercase text-accent"
         style={{ fontFamily: "var(--font-mono)" }}
       >
         {category}
       </span>
-      <div className="grid grid-cols-2 gap-6 md:gap-8">
-        {[
-          { type: "ANTES", ...before },
-          { type: "DEPOIS", ...after },
-        ].map(({ type, image, caption }) => (
-          <div key={type} className="flex flex-col gap-3">
-            <CaseArtifact label={type} caption={caption} image={image} />
-          </div>
-        ))}
+
+      {/* DEPOIS — entregável em destaque, colorido, full width */}
+      <CaseArtifact label="DEPOIS" caption={after.caption} image={after.image} featured />
+
+      {/* ANTES — referência compacta com caption ao lado */}
+      <div className="flex flex-col md:flex-row md:items-start gap-5 md:gap-8 pt-3">
+        <div className="md:w-[42%] shrink-0">
+          <CaseArtifact label="ANTES" image={before.image} />
+        </div>
+        <p className="text-sm text-muted-foreground font-light leading-relaxed md:pt-7">
+          {before.caption}
+        </p>
       </div>
     </div>
   );
@@ -549,7 +523,7 @@ export function ArtifactGrid({
 }) {
   return (
     <div
-      className={`grid gap-6 md:gap-8 my-4 ${
+      className={`grid gap-5 md:gap-[1.6rem] my-3 ${
         cols === 3 ? "md:grid-cols-3" : "md:grid-cols-2"
       }`}
     >

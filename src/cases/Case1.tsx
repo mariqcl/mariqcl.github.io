@@ -24,16 +24,7 @@ export function Case1View({
       onNext={onNext}
     >
       <CaseHero
-        index="Case 01"
-        title="Design que move o negócio"
-        hook={
-          <>
-            A diretoria criou um comitê para combater o churn. A investigação mostrou que{" "}
-            <span className="font-semibold">a experiência influenciava o churn</span> — e vi ali uma
-            oportunidade de{" "}
-            <span className="font-semibold">impacto e de reforço do papel do design</span>.
-          </>
-        }
+        hook="Design que move o negócio"
         tags={["Discovery", "Análise de dados", "Facilitação", "Priorização", "Estratégia", "Métricas", "Influência"]}
         overview={[
           { label: "Empresa", value: "Sieg — Produto Iris — Plataforma Fiscal" },
@@ -102,11 +93,13 @@ export function Case1View({
 
         <CaseHighlight>A causa não era falta de funcionalidades. Era quebra de confiança.</CaseHighlight>
 
-        <CaseHighlight>
-          Em um produto fiscal, errar pode significar multa. Um sistema que não comunica status, não
-          explica erros e não entrega informações no momento certo compromete a confiança do contador.
-          E o que não gera confiança nunca vira hábito. O que não vira hábito, cancela fácil.
-        </CaseHighlight>
+        <CaseBlock>
+          <p>
+            Em um produto fiscal, errar pode significar multa. Um sistema que não comunica status, não
+            explica erros e não entrega informações no momento certo compromete a confiança do contador.
+            E o que não gera confiança nunca vira hábito. O que não vira hábito, cancela fácil.
+          </p>
+        </CaseBlock>
 
         <ArtifactGrid cols={2}>
           <CaseArtifact
@@ -196,7 +189,7 @@ export function Case1View({
 
       <CasePhase
         number="04"
-        title="O Legado"
+        title="Resultado"
         subtitle="O comitê foi encerrado. O Design ganhou voz."
       >
         <CaseBlock label="Resultados Diretos">
