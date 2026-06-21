@@ -2,6 +2,80 @@ import { useState, useEffect, useRef } from "react";
 import { ArrowRight, ArrowUpRight, Moon, Sun } from "lucide-react";
 import { motion, AnimatePresence, MotionConfig } from "motion/react";
 
+// ─── Dot Grid ──────────────────────────────────────────────────────────────────
+
+function DotGrid() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const mouse = useRef({ x: -9999, y: -9999 });
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d")!;
+    const dpr = window.devicePixelRatio || 1;
+    let raf: number;
+
+    const resize = () => {
+      const w = canvas.offsetWidth;
+      const h = canvas.offsetHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    resize();
+
+    const onMove = (e: MouseEvent) => {
+      mouse.current = { x: e.clientX, y: e.clientY };
+    };
+    const onLeave = () => { mouse.current = { x: -9999, y: -9999 }; };
+
+    window.addEventListener("mousemove", onMove, { passive: true });
+    window.addEventListener("mouseleave", onLeave);
+    window.addEventListener("resize", resize);
+
+    const GAP = 36;
+    const RADIUS = 90;
+
+    const draw = () => {
+      const W = canvas.offsetWidth;
+      const H = canvas.offsetHeight;
+      ctx.clearRect(0, 0, W, H);
+
+      const { x: mx, y: my } = mouse.current;
+
+      for (let y = GAP; y < H; y += GAP) {
+        for (let x = GAP; x < W; x += GAP) {
+          const d = Math.hypot(x - mx, y - my);
+          const t = Math.max(0, 1 - d / RADIUS);
+          const alpha = 0.07 + t * 0.5;
+          const r = 1 + t * 1.2;
+          ctx.beginPath();
+          ctx.arc(x, y, r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(21, 93, 252, ${alpha})`;
+          ctx.fill();
+        }
+      }
+      raf = requestAnimationFrame(draw);
+    };
+    draw();
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseleave", onLeave);
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="fixed inset-0 w-full h-full pointer-events-none hidden md:block"
+      aria-hidden="true"
+    />
+  );
+}
+
 // ─── Preloader ─────────────────────────────────────────────────────────────────
 
 function Preloader({ onDone }: { onDone: () => void }) {
@@ -250,6 +324,8 @@ const cases = [
 
 function HomeView() {
   return (
+    <>
+    <DotGrid />
     <main id="main">
       {/* Hero ─────────────────────────────────────────────────────────────── */}
       <section className="min-h-screen flex flex-col justify-between pt-20 pb-0 px-16 md:px-28">
@@ -270,7 +346,7 @@ function HomeView() {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.1 }}
           >
-            2025
+            2026
           </motion.p>
         </div>
 
@@ -316,7 +392,7 @@ function HomeView() {
               onClick={() =>
                 document.getElementById("cases")?.scrollIntoView({ behavior: "smooth" })
               }
-              className="inline-flex items-center gap-4 text-sm px-8 py-4 transition-colors group shrink-0 text-white w-fit"
+              className="inline-flex items-center gap-4 text-sm px-8 py-4 transition-colors group shrink-0 text-white w-fit self-start"
               style={{ backgroundColor: "var(--accent)" }}
             >
               Ver projetos
@@ -515,6 +591,7 @@ function HomeView() {
         </div>
       </section>
     </main>
+    </>
   );
 }
 

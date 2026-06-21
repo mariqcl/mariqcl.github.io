@@ -4,6 +4,104 @@ import { ArrowRight, ArrowLeft, Moon, Sun } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 import { ImageWithFallback } from "../app/components/figma/ImageWithFallback";
 
+// ─── Reading Progress ──────────────────────────────────────────────────────────
+
+function ReadingProgress() {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const update = () => {
+      const scrolled = window.scrollY;
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      setProgress(total > 0 ? (scrolled / total) * 100 : 0);
+    };
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
+  }, []);
+
+  return (
+    <div
+      className="fixed top-0 left-0 z-[200] h-[2px] transition-none"
+      style={{ width: `${progress}%`, backgroundColor: "var(--accent)" }}
+    />
+  );
+}
+
+// ─── Dot Grid ──────────────────────────────────────────────────────────────────
+
+function DotGrid() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const mouse = useRef({ x: -9999, y: -9999 });
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d")!;
+    const dpr = window.devicePixelRatio || 1;
+    let raf: number;
+
+    const resize = () => {
+      const w = canvas.offsetWidth;
+      const h = canvas.offsetHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    };
+    resize();
+
+    const onMove = (e: MouseEvent) => {
+      const r = canvas.getBoundingClientRect();
+      mouse.current = { x: e.clientX - r.left, y: e.clientY - r.top };
+    };
+    const onLeave = () => { mouse.current = { x: -9999, y: -9999 }; };
+
+    window.addEventListener("mousemove", onMove, { passive: true });
+    window.addEventListener("mouseleave", onLeave);
+    window.addEventListener("resize", resize);
+
+    const GAP = 36;
+    const RADIUS = 90;
+
+    const draw = () => {
+      const W = canvas.offsetWidth;
+      const H = canvas.offsetHeight;
+      ctx.clearRect(0, 0, W, H);
+
+      const { x: mx, y: my } = mouse.current;
+
+      for (let y = GAP; y < H; y += GAP) {
+        for (let x = GAP; x < W; x += GAP) {
+          const d = Math.hypot(x - mx, y - my);
+          const t = Math.max(0, 1 - d / RADIUS);
+          const alpha = 0.07 + t * 0.5;
+          const r = 1 + t * 1.2;
+          ctx.beginPath();
+          ctx.arc(x, y, r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(21, 93, 252, ${alpha})`;
+          ctx.fill();
+        }
+      }
+      raf = requestAnimationFrame(draw);
+    };
+    draw();
+
+    return () => {
+      cancelAnimationFrame(raf);
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseleave", onLeave);
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="fixed inset-0 w-full h-full pointer-events-none hidden md:block"
+      aria-hidden="true"
+    />
+  );
+}
+
 // ─── Primitives ────────────────────────────────────────────────────────────────
 
 export function Rule() {
@@ -170,6 +268,9 @@ export function CaseLayout({
   onNext?: () => void;
 }) {
   return (
+    <>
+    <ReadingProgress />
+    <DotGrid />
     <main id="main" className="pt-40">
       <div className="px-16 md:px-28 pb-8">
         <BackButton onClick={onBack} />
@@ -213,6 +314,7 @@ export function CaseLayout({
         </motion.div>
       )}
     </main>
+    </>
   );
 }
 
