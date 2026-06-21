@@ -29,8 +29,8 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # ── 1. Build da home pública ───────────────────────────────────────────
-      - name: Build main SPA (home pública)
+      # ── 1. Build da home ──────────────────────────────────────────────────
+      - name: Build main SPA
         run: npm run build
 
       # ── 2. Build de cada case como HTML auto-contido (JS/CSS embutidos) ───
@@ -43,15 +43,35 @@ jobs:
       - name: Build Case 03
         run: CASE_NUM=3 npm run build:case
 
-      # ── 3. Criptografar cada case com StatiCrypt (AES-256) ────────────────
-      - name: Encrypt cases with StatiCrypt
+      # ── 3. Criptografar home e cases com StatiCrypt (AES-256) ───────────────
+      - name: Encrypt all pages with StatiCrypt
         env:
           PORTFOLIO_PASSWORD: ${{ secrets.PORTFOLIO_PASSWORD }}
         run: |
+          SALT="f3a2b1c4d5e67890abcdef9876543210"
+
+          # Home — protegida com o mesmo salt para que o localStorage funcione entre páginas
+          mkdir -p /tmp/enc-home
+          npx staticrypt dist/index.html \
+            --password "$PORTFOLIO_PASSWORD" \
+            --salt "$SALT" \
+            --remember 365 \
+            --template staticrypt-template.html \
+            --template-title "Mariana Queiroz" \
+            --template-instructions "Este portfólio é compartilhado mediante senha." \
+            --template-placeholder "Senha" \
+            --template-button "Acessar" \
+            --template-error "Senha incorreta." \
+            -d /tmp/enc-home
+          cp /tmp/enc-home/index.html dist/index.html
+
+          # Cases
           for i in 1 2 3; do
             mkdir -p /tmp/enc-case-$i
             npx staticrypt dist/cases/case-$i/index.html \
               --password "$PORTFOLIO_PASSWORD" \
+              --salt "$SALT" \
+              --remember 365 \
               --template staticrypt-template.html \
               --template-title "Acesso restrito" \
               --template-instructions "Este conteúdo é compartilhado mediante senha." \
