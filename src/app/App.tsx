@@ -27,9 +27,15 @@ function DotGrid() {
     const onMove = (e: MouseEvent) => {
       mouse.current = { x: e.clientX, y: e.clientY };
     };
+    const onTouch = (e: TouchEvent) => {
+      const t = e.touches[0];
+      if (t) mouse.current = { x: t.clientX, y: t.clientY };
+    };
     const onLeave = () => { mouse.current = { x: -9999, y: -9999 }; };
 
     window.addEventListener("mousemove", onMove, { passive: true });
+    window.addEventListener("touchmove", onTouch, { passive: true });
+    window.addEventListener("touchend", onLeave, { passive: true });
     window.addEventListener("mouseleave", onLeave);
     window.addEventListener("resize", resize);
 
@@ -62,6 +68,8 @@ function DotGrid() {
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("touchmove", onTouch);
+      window.removeEventListener("touchend", onLeave);
       window.removeEventListener("mouseleave", onLeave);
       window.removeEventListener("resize", resize);
     };
@@ -70,7 +78,7 @@ function DotGrid() {
   return (
     <canvas
       ref={canvasRef}
-      className="fixed inset-0 w-full h-full pointer-events-none hidden md:block"
+      className="fixed inset-0 w-full h-full pointer-events-none block"
       aria-hidden="true"
     />
   );
