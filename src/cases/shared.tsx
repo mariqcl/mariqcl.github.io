@@ -170,7 +170,7 @@ export function CaseLayout({
   onNext?: () => void;
 }) {
   return (
-    <main id="main" className="pt-20">
+    <main id="main" className="pt-40">
       <div className="px-16 md:px-28 pb-8">
         <BackButton onClick={onBack} />
       </div>
