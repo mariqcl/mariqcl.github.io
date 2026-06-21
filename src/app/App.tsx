@@ -100,7 +100,7 @@ function Preloader({ onDone }: { onDone: () => void }) {
 
   return (
     <motion.div
-      className="fixed inset-0 z-[100] bg-background flex items-end justify-between px-16 md:px-28 pb-10"
+      className="fixed inset-0 z-[100] bg-background flex items-end justify-between px-6 md:px-28 pb-10"
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
     >
@@ -252,7 +252,7 @@ function Nav({
         scrolled ? "border-b border-border bg-background/98 backdrop-blur-sm" : ""
       }`}
     >
-      <div className="px-16 md:px-28 py-4 md:py-8 flex items-center justify-between">
+      <div className="px-6 md:px-28 py-4 md:py-8 flex items-center justify-between">
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="font-mono text-[12px] tracking-[0.2em] uppercase text-accent transition-colors"
@@ -328,7 +328,7 @@ function HomeView() {
     <DotGrid />
     <main id="main">
       {/* Hero ─────────────────────────────────────────────────────────────── */}
-      <section className="min-h-screen flex flex-col justify-between pt-20 pb-0 px-16 md:px-28">
+      <section className="min-h-screen flex flex-col justify-between pt-20 pb-0 px-6 md:px-28">
         <div className="flex items-start justify-between pt-9">
           <motion.p
             className="font-mono text-[12px] tracking-[0.22em] uppercase text-muted-foreground"
@@ -403,7 +403,7 @@ function HomeView() {
       </section>
 
       {/* Cases ────────────────────────────────────────────────────────────── */}
-      <section id="cases" className="px-16 md:px-28 pt-20 md:pt-28 pb-7">
+      <section id="cases" className="px-6 md:px-28 pt-20 md:pt-28 pb-7">
         <SectionLabel>Projetos selecionados</SectionLabel>
       </section>
 
@@ -419,7 +419,7 @@ function HomeView() {
             <Rule />
             <a
               href={`./cases/${c.id}/`}
-              className="w-full text-left px-16 md:px-28 py-9 group hover:bg-accent/5 transition-colors block"
+              className="w-full text-left px-6 md:px-28 py-9 group hover:bg-accent/5 transition-colors block"
               aria-label={`Ver projeto: ${c.title}`}
             >
               <div className="grid grid-cols-[3rem_1fr_auto] md:grid-cols-12 gap-6 md:gap-8 items-start">
@@ -463,7 +463,7 @@ function HomeView() {
       </div>
 
       {/* About ────────────────────────────────────────────────────────────── */}
-      <section className="px-16 md:px-28 py-24 md:py-32">
+      <section className="px-6 md:px-28 py-24 md:py-32">
         <div className="grid md:grid-cols-12 gap-14 md:gap-7 items-start">
           <div className="md:col-span-5 md:pr-10">
             <h2 className="text-[3.267rem] md:text-[4.356rem] leading-tight -mt-[0.15em]">
@@ -542,7 +542,7 @@ function HomeView() {
       {/* Contact ─────────────────────────────────────────────────────────── */}
       <section
         id="contact"
-        className="min-h-[60vh] flex flex-col border-t border-border px-16 md:px-28 pt-14 pb-9"
+        className="min-h-[60vh] flex flex-col border-t border-border px-6 md:px-28 pt-14 pb-9"
       >
         <div className="flex-1 flex flex-col justify-center">
           <div className="flex items-start justify-between gap-7">

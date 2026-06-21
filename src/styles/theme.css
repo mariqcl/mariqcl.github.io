@@ -6,8 +6,9 @@
 }
 
 :root {
+  color-scheme: light;
   --font-size: 16px;
-  --background: oklch(98.4% 0.003 247.858);
+  --background: oklch(98.7% 0.002 197.1);
   --foreground: #000000;
   --card: oklch(96% 0.003 247.858);
   --card-foreground: #000000;
@@ -47,22 +48,23 @@
 }
 
 .dark {
-  --background: #000000;
-  --foreground: #ffffff;
-  --card: #0a0a0a;
-  --card-foreground: #ffffff;
-  --popover: #0a0a0a;
-  --popover-foreground: #ffffff;
-  --primary: #ffffff;
-  --primary-foreground: #000000;
-  --secondary: #111111;
-  --secondary-foreground: #ffffff;
-  --muted: #111111;
+  color-scheme: dark;
+  --background: #0D0D0D;
+  --foreground: #F0F0F0;
+  --card: #141414;
+  --card-foreground: #F0F0F0;
+  --popover: #141414;
+  --popover-foreground: #F0F0F0;
+  --primary: #F0F0F0;
+  --primary-foreground: #0D0D0D;
+  --secondary: #1A1A1A;
+  --secondary-foreground: #F0F0F0;
+  --muted: #1A1A1A;
   --muted-foreground: #a3a3a3;
-  --accent: #FF6600;
-  --accent-foreground: #000000;
+  --accent: #7FA8FD;
+  --accent-foreground: #0D0D0D;
   --destructive: #cc0000;
-  --destructive-foreground: #ffffff;
+  --destructive-foreground: #F0F0F0;
   --border: rgba(255, 255, 255, 0.1);
   --input: rgba(255, 255, 255, 0.05);
   --ring: rgba(255, 255, 255, 0.25);

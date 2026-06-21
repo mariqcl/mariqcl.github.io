@@ -214,7 +214,7 @@ export function Nav({
         scrolled ? "border-b border-border bg-background/98 backdrop-blur-sm" : ""
       }`}
     >
-      <div className="px-16 md:px-28 py-4 md:py-8 flex items-center justify-between">
+      <div className="px-6 md:px-28 py-4 md:py-8 flex items-center justify-between">
         <button
           onClick={onHome}
           className="font-mono text-[12px] tracking-[0.2em] uppercase text-accent transition-colors"
@@ -272,7 +272,7 @@ export function CaseLayout({
     <ReadingProgress />
     <DotGrid />
     <main id="main" className="pt-40">
-      <div className="px-16 md:px-28 pb-8">
+      <div className="px-6 md:px-28 pb-8">
         <BackButton onClick={onBack} />
       </div>
 
@@ -288,7 +288,7 @@ export function CaseLayout({
         >
           <button
             onClick={onNext}
-            className="w-full text-left px-16 md:px-28 py-[3.2rem] md:py-[4.8rem] group transition-colors block"
+            className="w-full text-left px-6 md:px-28 py-[3.2rem] md:py-[4.8rem] group transition-colors block"
             aria-label={`Próximo projeto: ${nextLabel}`}
           >
             <div className="flex items-center justify-between">
@@ -335,21 +335,21 @@ export function CaseHero({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
     >
-      <div className="px-16 md:px-28 mb-[2.4rem] md:mb-[3.2rem]">
+      <div className="px-6 md:px-28 mb-[2.4rem] md:mb-[3.2rem]">
         <h1 className="text-[clamp(2.64rem,6.6vw,6rem)] font-light leading-[1.05] tracking-tight max-w-6xl">
           {hook}
         </h1>
       </div>
 
       <p
-        className="px-16 md:px-28 font-mono text-[11px] tracking-[0.15em] uppercase text-accent dark:text-[#9B6B45]"
+        className="px-6 md:px-28 font-mono text-[11px] tracking-[0.15em] uppercase text-accent dark:text-[#9B6B45]"
         style={{ fontFamily: "var(--font-mono)" }}
       >
         {tags.join(" · ")}
       </p>
 
       <div className="mt-[4.8rem] border-t border-border">
-        <dl className="px-16 md:px-28 py-[1.6rem] grid grid-cols-2 md:grid-cols-4 gap-[1.6rem] mb-0">
+        <dl className="px-6 md:px-28 py-[1.6rem] grid grid-cols-2 md:grid-cols-4 gap-[1.6rem] mb-0">
           {overview.map(({ label, value }) => (
             <div key={label}>
               <dt
@@ -395,7 +395,7 @@ export function CasePhase({
         {number}
       </div>
 
-      <div className="grid md:grid-cols-12 gap-[1.6rem] md:gap-[3.2rem] px-16 md:px-28 relative z-10">
+      <div className="grid md:grid-cols-12 gap-[1.6rem] md:gap-[3.2rem] px-6 md:px-28 relative z-10">
         <div className="md:col-span-4 flex flex-col gap-5">
           <h2 className="text-3xl md:text-[2.5rem] font-medium leading-[1.1] tracking-tight">
             {title}
