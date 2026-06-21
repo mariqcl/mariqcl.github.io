@@ -52,8 +52,13 @@ jobs:
             mkdir -p /tmp/enc-case-$i
             npx staticrypt dist/cases/case-$i/index.html \
               --password "$PORTFOLIO_PASSWORD" \
-              -d /tmp/enc-case-$i \
-              --short
+              --template staticrypt-template.html \
+              --template-title "Acesso restrito" \
+              --template-instructions "Este conteúdo é compartilhado mediante senha." \
+              --template-placeholder "Senha" \
+              --template-button "Acessar" \
+              --template-error "Senha incorreta." \
+              -d /tmp/enc-case-$i
             cp /tmp/enc-case-$i/index.html dist/cases/case-$i/index.html
           done
 
