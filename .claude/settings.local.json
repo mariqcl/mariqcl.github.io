@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(run)",
+      "Skill(run:*)",
+      "Bash(npx staticrypt *)",
+      "Bash(open \"http://localhost:5050/cases/case-1/\")",
+      "Bash(find /Users/marianaqueiroz/Documents/portfoliov2/node_modules -path \"*/staticrypt*\" -name \"*.html\" 2>/dev/null | head -5; find ~/.npm/_npx -path \"*/staticrypt*\" -name \"*.html\" 2>/dev/null | head -5)",
+      "Read(//Users/marianaqueiroz/.npm/_npx/**)"
+    ]
+  }
+}

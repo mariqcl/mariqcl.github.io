@@ -1,0 +1,74 @@
+name: Build, Encrypt & Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      # ── 1. Build da home pública ───────────────────────────────────────────
+      - name: Build main SPA (home pública)
+        run: npm run build
+
+      # ── 2. Build de cada case como HTML auto-contido (JS/CSS embutidos) ───
+      - name: Build Case 01
+        run: CASE_NUM=1 npm run build:case
+
+      - name: Build Case 02
+        run: CASE_NUM=2 npm run build:case
+
+      - name: Build Case 03
+        run: CASE_NUM=3 npm run build:case
+
+      # ── 3. Criptografar cada case com StatiCrypt (AES-256) ────────────────
+      - name: Encrypt cases with StatiCrypt
+        env:
+          PORTFOLIO_PASSWORD: ${{ secrets.PORTFOLIO_PASSWORD }}
+        run: |
+          for i in 1 2 3; do
+            mkdir -p /tmp/enc-case-$i
+            npx staticrypt dist/cases/case-$i/index.html \
+              --password "$PORTFOLIO_PASSWORD" \
+              -d /tmp/enc-case-$i \
+              --short
+            cp /tmp/enc-case-$i/index.html dist/cases/case-$i/index.html
+          done
+
+      # ── 4. Upload e deploy para GitHub Pages ──────────────────────────────
+      - name: Upload pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: "dist"
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
