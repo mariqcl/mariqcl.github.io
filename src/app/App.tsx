@@ -394,7 +394,7 @@ function HomeView() {
               <strong className="font-semibold" style={{ color: "var(--accent)" }}>
                 ecossistemas digitais
               </strong>{" "}
-              do discovery ao delivery, conectando pesquisa, estratégia e tecnologia.
+              do discovery ao delivery, conectando pesquisa, <span className="whitespace-nowrap">estratégia e tecnologia.</span>
             </p>
             <button
               onClick={() =>
