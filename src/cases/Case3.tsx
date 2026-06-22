@@ -8,9 +8,14 @@ import {
   BeforeAfterPair,
 } from "./shared";
 
-export function Case3View({ onBack }: { onBack: () => void }) {
+export function Case3View({ onBack, onNext }: { onBack: () => void; onNext?: () => void }) {
   return (
-    <CaseLayout onBack={onBack}>
+    <CaseLayout
+      onBack={onBack}
+      nextIndex="02"
+      nextLabel="O sistema que escala o time"
+      onNext={onNext}
+    >
       <CaseHero
         hook="Uma plataforma, em vez de cinco produtos"
         tags={[
@@ -148,14 +153,6 @@ export function Case3View({ onBack }: { onBack: () => void }) {
             aprofundada com usuários. Para compensar, todas as áreas validaram o impacto no seu
             território. Em vez de um corte único, acordamos um rollout gradual para não interromper a
             operação.
-          </p>
-          <p>
-            O menu unificado já está parcialmente no ar. A padronização visual das telas avança de
-            forma gradual, acompanhando as refatorações do sistema — a unificação completa está
-            prevista para o fim do ano.
-          </p>
-          <p>
-            O guia de governança já é a régua que o time usa para decidir onde cada coisa mora.
           </p>
           <p>
             Como vou medir o sucesso: menos tempo e menos cliques até a ação principal, e queda nos

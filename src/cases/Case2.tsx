@@ -58,15 +58,8 @@ export function Case2View({
       <CasePhase
         number="02"
         title="A Estratégia"
-        subtitle="Não comecei pelo Figma. Comecei sentando do lado do dev."
+        subtitle="Não comecei pelo Figma. Comecei sentando do lado do dev. Entender a dor do time antes de entregar qualquer coisa fez o sistema virar parceria, não imposição."
       >
-        <CaseBlock>
-          <p>
-            Entender a dor dele antes de entregar qualquer coisa fez o sistema virar parceria, não
-            imposição.
-          </p>
-        </CaseBlock>
-
         <CaseBlock label="Três Movimentos Estruturantes">
           <div className="space-y-12 mt-6">
             {[
@@ -91,7 +84,7 @@ export function Case2View({
                 className="flex flex-col md:flex-row gap-6 md:gap-10 items-start border-t border-border pt-8"
               >
                 <span
-                  className="font-mono text-[12px] text-accent/40 md:pt-2"
+                  className="font-mono text-[12px] text-accent md:pt-2"
                   style={{ fontFamily: "var(--font-mono)" }}
                 >
                   Movimento {item.n}
@@ -263,7 +256,7 @@ export function Case2View({
       </CasePhase>
 
       <CasePhase number="05" title="O Resultado" subtitle="Impacto escalável.">
-        <CaseHighlight>
+        <CaseHighlight className="pt-0 mt-0">
           É a tese inteira do sistema num ciclo: reutilização antes da criação, executada por IA,
           com o design system como fonte única de verdade.
         </CaseHighlight>

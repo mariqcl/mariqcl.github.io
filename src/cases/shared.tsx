@@ -118,7 +118,7 @@ export function Rule() {
 export function Tag({ children }: { children: React.ReactNode }) {
   return (
     <span
-      className="inline-block font-mono text-[12px] tracking-widest uppercase text-muted-foreground border border-border px-4 py-2"
+      className="inline-block font-mono text-[12px] tracking-widest uppercase text-muted-foreground border border-border px-4 py-2 dark:text-accent dark:border-accent/30"
       style={{ fontFamily: "var(--font-mono)" }}
     >
       {children}
@@ -402,7 +402,7 @@ export function CasePhase({
         {number}
       </div>
 
-      <div className="grid md:grid-cols-12 gap-[1.6rem] md:gap-[3.2rem] px-6 md:px-28 relative z-10">
+      <div className="grid md:grid-cols-12 gap-[1.6rem] md:gap-[3.2rem] px-6 md:px-28 relative z-10 items-start">
         <div className="md:col-span-4 flex flex-col gap-5">
           <h2 className="text-3xl md:text-[2.5rem] font-medium leading-[1.1] tracking-tight">
             {title}
@@ -448,9 +448,9 @@ export function CaseBlock({
 
 // ─── Case Highlight ────────────────────────────────────────────────────────────
 
-export function CaseHighlight({ children }: { children: React.ReactNode }) {
+export function CaseHighlight({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className="py-5 md:py-8 my-3">
+    <div className={`py-5 md:py-8 my-3 ${className ?? ""}`}>
       <p className="text-2xl md:text-3xl font-light leading-snug tracking-tight text-foreground/90">
         {children}
       </p>

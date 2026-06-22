@@ -18,6 +18,7 @@ function App() {
         />
         <Case3View
           onBack={() => { window.location.href = "../../"; }}
+          onNext={() => { window.location.href = "../case-2/"; }}
         />
       </div>
     </MotionConfig>

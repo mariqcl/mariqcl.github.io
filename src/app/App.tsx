@@ -449,7 +449,7 @@ function HomeView() {
                       {c.hook}
                     </p>
                     <p
-                      className="font-mono text-[11px] tracking-[0.15em] uppercase text-accent dark:text-[#9B6B45]"
+                      className="font-mono text-[11px] tracking-[0.15em] uppercase text-accent"
                       style={{ fontFamily: "var(--font-mono)" }}
                     >
                       {c.tags.join(" · ")}
@@ -542,6 +542,96 @@ function HomeView() {
                   </div>
                 ))}
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Conteúdos ───────────────────────────────────────────────────────── */}
+      <section
+        id="conteudos"
+        className="border-t border-border px-6 md:px-28 pt-14 pb-14"
+      >
+        <SectionLabel>Conteúdos</SectionLabel>
+        <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-1">
+            <span
+              className="font-mono text-[11px] tracking-[0.18em] uppercase text-muted-foreground"
+              style={{ fontFamily: "var(--font-mono)" }}
+            >
+              Artigos
+            </span>
+            <div className="flex flex-col gap-3 mt-3">
+              <a
+                href="https://brasil.uxdesign.cc/ia-na-governanca-de-icones-em-design-system-0df9b3124ad0"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-base md:text-lg font-light hover:text-accent transition-colors group inline-flex items-center gap-3"
+              >
+                IA na governança de ícones em design system
+                <ArrowUpRight
+                  size={16}
+                  className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent transition-all flex-shrink-0"
+                />
+              </a>
+              <a
+                href="https://medium.com/ux-user-experience-design-em-portugues/entrevistas-em-profundidade-em-ux-research-por-que-a-ordem-das-perguntas-importa-01306cec4ec7"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-base md:text-lg font-light hover:text-accent transition-colors group inline-flex items-center gap-3"
+              >
+                Entrevistas em profundidade em UX Research: por que a ordem das perguntas importa
+                <ArrowUpRight
+                  size={16}
+                  className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent transition-all flex-shrink-0"
+                />
+              </a>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-1">
+            <span
+              className="font-mono text-[11px] tracking-[0.18em] uppercase text-muted-foreground"
+              style={{ fontFamily: "var(--font-mono)" }}
+            >
+              Webinar
+            </span>
+            <div className="mt-3">
+              <a
+                href="https://www.youtube.com/watch?v=ygDDtU-TBG4"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-base md:text-lg font-light hover:text-accent transition-colors group inline-flex items-center gap-3"
+              >
+                Assistir no YouTube
+                <ArrowUpRight
+                  size={16}
+                  className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent transition-all flex-shrink-0"
+                />
+              </a>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-1">
+            <span
+              className="font-mono text-[11px] tracking-[0.18em] uppercase text-muted-foreground"
+              style={{ fontFamily: "var(--font-mono)" }}
+            >
+              Curso
+            </span>
+            <div className="mt-3">
+              <a
+                href="https://www.thestarter.io/design-systems-para-ia"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-base md:text-lg font-light hover:text-accent transition-colors group inline-flex items-center gap-3"
+              >
+                Design Systems para IA — The Starter
+                <ArrowUpRight
+                  size={16}
+                  className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-accent transition-all flex-shrink-0"
+                />
+              </a>
             </div>
           </div>
         </div>
