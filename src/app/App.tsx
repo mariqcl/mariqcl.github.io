@@ -278,13 +278,13 @@ function Nav({
           >
             LinkedIn
           </a>
-          <a
-            href="mailto:mariqcl@gmail.com"
+          <button
+            onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
             className="font-mono text-[12px] tracking-[0.15em] uppercase text-muted-foreground hover:text-accent transition-colors hidden md:block"
             style={{ fontFamily: "var(--font-mono)" }}
           >
             Contato
-          </a>
+          </button>
           <button
             onClick={toggleTheme}
             className="text-muted-foreground hover:text-accent transition-colors"
