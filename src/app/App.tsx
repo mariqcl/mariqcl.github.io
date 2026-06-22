@@ -419,10 +419,10 @@ function HomeView() {
         {cases.map((c, i) => (
           <motion.div
             key={c.id}
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.5, delay: i * 0.05 }}
+            transition={{ duration: 0.75, delay: i * 0.18, ease: [0.22, 1, 0.36, 1] }}
           >
             <Rule />
             <a
@@ -553,8 +553,17 @@ function HomeView() {
         className="border-t border-border px-6 md:px-28 pt-14 pb-14"
       >
         <SectionLabel>Conteúdos</SectionLabel>
-        <div className="flex flex-col gap-8">
-          <div className="flex flex-col gap-1">
+        <motion.div
+          className="flex flex-col gap-8"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-40px" }}
+          variants={{ visible: { transition: { staggerChildren: 0.18 } } }}
+        >
+          <motion.div
+            className="flex flex-col gap-1"
+            variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } } }}
+          >
             <span
               className="font-mono text-[11px] tracking-[0.18em] uppercase text-muted-foreground"
               style={{ fontFamily: "var(--font-mono)" }}
@@ -587,9 +596,12 @@ function HomeView() {
                 />
               </a>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="flex flex-col gap-1">
+          <motion.div
+            className="flex flex-col gap-1"
+            variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } } }}
+          >
             <span
               className="font-mono text-[11px] tracking-[0.18em] uppercase text-muted-foreground"
               style={{ fontFamily: "var(--font-mono)" }}
@@ -610,9 +622,12 @@ function HomeView() {
                 />
               </a>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="flex flex-col gap-1">
+          <motion.div
+            className="flex flex-col gap-1"
+            variants={{ hidden: { opacity: 0, y: 24 }, visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: [0.22, 1, 0.36, 1] } } }}
+          >
             <span
               className="font-mono text-[11px] tracking-[0.18em] uppercase text-muted-foreground"
               style={{ fontFamily: "var(--font-mono)" }}
@@ -633,8 +648,8 @@ function HomeView() {
                 />
               </a>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </section>
 
       {/* Contact ─────────────────────────────────────────────────────────── */}
