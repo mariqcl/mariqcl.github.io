@@ -512,23 +512,23 @@ function HomeView() {
               >
                 O impacto da IA no meu ecossistema
               </p>
-              <p>A IA redesenha minha atuação em três pilares:</p>
+              <p>Utilizo a IA para ampliar minha capacidade de projetar, decidir e evoluir produtos em três pilares:</p>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-7 md:gap-5 pt-2">
                 {[
                   {
                     label: "Processo",
                     sub: "eficiência",
-                    desc: "Explora alternativas, simula fluxos e acelera decisões. Encurta o ciclo entre intenção e código.",
+                    desc: "Explora alternativas, acelera análises e reduz o tempo entre a ideia e a execução.",
                   },
                   {
                     label: "Governança",
                     sub: "consistência",
-                    desc: "Mantém padrões de decisão e estrutura vivos, preservando a integridade do ecossistema conforme o produto evolui.",
+                    desc: "Consolida padrões, documenta decisões e preserva a coerência do ecossistema ao longo da evolução do produto.",
                   },
                   {
                     label: "Produto",
                     sub: "experiência",
-                    desc: "Integra-se de forma nativa à jornada, simplificando caminhos e interpretando regras complexas. Extensão natural do fluxo, não recurso isolado.",
+                    desc: "Incorpora inteligência à jornada do usuário, simplificando interações e transformando a IA em uma camada nativa da experiência.",
                   },
                 ].map((item) => (
                   <div key={item.label}>
